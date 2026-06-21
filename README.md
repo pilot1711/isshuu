@@ -1,1 +1,252 @@
-# isshuu
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Tiny Question ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+.hearts{
+position:fixed;
+inset:0;
+pointer-events:none;
+}
+.heart{
+position:absolute;
+font-size:22px;
+animation:float 8s linear infinite;
+opacity:.6;
+}
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-120px);}
+}
+.card{
+background:white;
+max-width:550px;
+width:100%;
+padding:35px;
+border-radius:28px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+.gif{
+width:220px;
+border-radius:18px;
+margin-bottom:15px;
+}
+h1{
+margin-bottom:10px;
+color:#ff4d79;
+}
+p{
+line-height:1.7;
+margin-bottom:20px;
+color:#444;
+}
+button{
+border:none;
+padding:12px 22px;
+border-radius:999px;
+cursor:pointer;
+font-size:15px;
+margin:8px;
+transition:.25s;
+}
+.primary{
+background:#ff4d79;
+color:white;
+}
+.secondary{
+background:#f2f2f2;
+}
+.primary:hover{
+transform:scale(1.05);
+}
+.hidden{
+display:none;
+}
+.option{
+display:block;
+width:100%;
+margin:10px 0;
+}
+.final{
+font-size:20px;
+font-weight:600;
+color:#ff4d79;
+}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<div class="card">
+<!-- Screen 1 -->
+<div id="s1">
+<img class="gif"
+src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+<h1>Hey Ishrat ❤️</h1>
+<p>
+Before you close this page...
+just give me 30 seconds 😌
+</p>
+<button class="primary" onclick="next('s1','s2')">
+Okay fine 😒
+</button>
+</div>
+<!-- Screen 2 -->
+<div id="s2" class="hidden">
+<h1>Quick Recap 😂</h1>
+<p>
+We've survived random conversations,
+awkward timings,
+and probably a few of my bad jokes too.
+</p>
+<button class="primary" onclick="next('s2','s3')">
+Continue 🙄
+</button>
+</div>
+<!-- Screen 3 -->
+<div id="s3" class="hidden">
+<img class="gif"
+src="https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif">
+<h1>Important Question 👀</h1>
+<p>
+Ready?
+</p>
+<button class="primary" onclick="next('s3','s4')">
+I'm Listening
+</button>
+</div>
+<!-- Screen 4 -->
+<div id="s4" class="hidden">
+<h1>Would You Go On A Date With Me? 🌹</h1>
+<button class="primary" onclick="yesClicked()">
+Yes 💕
+</button>
+<button id="noBtn"
+class="secondary">
+No 😈
+</button>
+</div>
+<!-- Screen 5 -->
+<div id="s5" class="hidden">
+<h1>WAIT... 😳</h1>
+<p>
+You actually said yes?!
+I was mentally prepared for 17 rejection speeches.
+</p>
+<button class="primary" onclick="next('s5','s6')">
+Continue 😌
+</button>
+</div>
+<!-- Screen 6 -->
+<div id="s6" class="hidden">
+<h1>Choose Our Date ☕</h1>
+<button class="option primary" onclick="finish('Coffee Date ☕')">
+Coffee Date ☕
+</button>
+<button class="option primary" onclick="finish('Boba Date 🧋')">
+Boba Date 🧋
+</button>
+<button class="option primary" onclick="finish('Dessert Date 🍰')">
+Dessert Date 🍰
+</button>
+<button class="option primary" onclick="finish('Evening Walk 🚶')">
+Evening Walk 🚶
+</button>
+</div>
+<!-- Screen 7 -->
+<div id="s7" class="hidden">
+<img class="gif"
+src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+<h1>Mission Successful ❤️</h1>
+<p class="final" id="chosenDate"></p>
+<p>
+This website probably took longer to make
+than it would've taken to ask you directly 😭
+</p>
+<p>
+Now all that's left is deciding when. 🌹
+</p>
+</div>
+</div>
+<script>
+function next(a,b){
+document.getElementById(a).classList.add("hidden");
+document.getElementById(b).classList.remove("hidden");
+}
+let noCount=0;
+const messages=[
+"Are you sure? 🥺",
+"Think carefully 😭",
+"This option seems suspicious 🤨",
+"Nice try 😂",
+"Still no? 😔"
+];
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+if(window.innerWidth>700){
+const x=Math.random()*250-125;
+const y=Math.random()*150-75;
+noBtn.style.transform=
+`translate(${x}px,${y}px)`;
+}
+});
+noBtn.addEventListener("click",()=>{
+noBtn.innerText=
+messages[Math.min(noCount,messages.length-1)];
+noCount++;
+if(noCount>=5){
+noBtn.style.display="none";
+}
+});
+function yesClicked(){
+next("s4","s5");
+}
+function finish(plan){
+document.getElementById("s6").classList.add("hidden");
+document.getElementById("s7").classList.remove("hidden");
+document.getElementById("chosenDate").innerHTML=
+"Date Selected: <br><br>" + plan;
+confettiBoom();
+}
+function confettiBoom(){
+for(let i=0;i<80;i++){
+let heart=document.createElement("div");
+heart.innerHTML=["❤️","💕","🌹","✨"][Math.floor(Math.random()*4)];
+heart.classList.add("heart");
+heart.style.left=Math.random()*100+"%";
+heart.style.animationDuration=
+(4+Math.random()*4)+"s";
+document.getElementById("hearts").appendChild(heart);
+}
+}
+for(let i=0;i<20;i++){
+let h=document.createElement("div");
+h.classList.add("heart");
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"%";
+h.style.animationDuration=
+(6+Math.random()*6)+"s";
+document.getElementById("hearts").appendChild(h);
+}
+</script>
+</body>
+</html>
